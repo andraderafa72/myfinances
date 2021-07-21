@@ -41,6 +41,7 @@ Plataforma desenvolvida no Ignite, na trilha de ReactJS, ministrado pela [Rocket
 
 - Clone o repositório
 - Instale as dependências com `npm i`
+- Inicie a Fake API com `npm run server`
 - Inicie o servidor com `npm start`
 
 Agora você pode acessar [`localhost:3000`](http://localhost:3000) do seu navegador.
