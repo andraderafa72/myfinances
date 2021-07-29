@@ -20,10 +20,11 @@ export const Container = styled.div`
       border: 0;
       background: var(--shape);
       color: var(--text-body);
-      border-radius: .25rem;
 
       &:first-child{
+        width: 30%;
         color: var(--text-title);
+        border-radius: .25rem 0 0 .25rem;
       }
 
       &.deposit{
@@ -31,6 +32,24 @@ export const Container = styled.div`
       }
       &.withdraw{
         color: var(--red)
+      }
+
+      &:last-child{
+        border-radius: 0 .25rem .25rem 0;
+        padding: 1rem  0;
+        display: flex;
+        align-items: center;
+
+        img{
+          cursor: pointer;
+          transition: filter .4s;
+          &:hover{
+            filter: brightness(.8);
+          }
+          & + img{
+            margin-left: 1rem;
+          }
+        }
       }
     }
   }

@@ -1,11 +1,34 @@
 import { useTransactions } from "../../hooks/useTransactions";
 import { Container } from "./styles";
+import deleteImg from '../../assets/delete.svg';
+import editImg from '../../assets/edit.svg';
+import { EditTransactionModal } from "../EditTransactionModal";
+import { Transaction } from "../../contexts/TransactionsContext";
+import { useState } from "react";
 
 export function TransactionsTable() {
-  const { transactions } = useTransactions();
+  const { transactions, deleteTransaction } = useTransactions();
+  const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState(false)
+  const [transactionToEdit, setTransactionToEdit] = useState<Transaction>({} as Transaction)
+
+  function handleOpenEditTransactionModal() {
+    setIsEditTransactionModalOpen(true)
+  }
+
+  function handleCloseEditTransactionModal() {
+    setIsEditTransactionModalOpen(false)
+  }
 
   return (
     <Container>
+      {transactionToEdit._id ? (
+        <EditTransactionModal
+          isOpen={isEditTransactionModalOpen}
+          onRequestClose={handleCloseEditTransactionModal}
+          transaction={transactionToEdit}
+        />
+      ) : (<></>)}
+
       <table>
         <thead>
           <tr>
@@ -18,7 +41,7 @@ export function TransactionsTable() {
 
         <tbody>
           {transactions.map(transaction => (
-            <tr key={transaction.id}>
+            <tr key={transaction._id}>
               <td>{transaction.title}</td>
               <td className={transaction.type}>
                 {transaction.type === 'withdraw' && '- '}
@@ -32,6 +55,14 @@ export function TransactionsTable() {
                 {new Intl.DateTimeFormat('pt-BR').format(
                   new Date(transaction.createdAt)
                 )}
+              </td>
+              <td>
+                <img src={editImg} alt="Editar transação" onClick={() => {
+                  setTransactionToEdit(transaction);
+                  handleOpenEditTransactionModal()
+                }
+                } />
+                <img src={deleteImg} alt="Apagar transação" onClick={() => deleteTransaction(transaction._id)} />
               </td>
             </tr>
           ))}

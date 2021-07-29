@@ -1,8 +1,8 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { api } from "../services/api";
 
-type Transaction = {
-  id: number;
+export type Transaction = {
+  _id: string;
   title: string;
   amount: number;
   type: string;
@@ -10,7 +10,7 @@ type Transaction = {
   createdAt: string;
 }
 
-type TransactionInput = Omit<Transaction, 'id' | 'createdAt'>
+type TransactionInput = Omit<Transaction, '_id' | 'createdAt'>
 
 type TransactionsProviderProps = {
   children: ReactNode;
@@ -19,6 +19,8 @@ type TransactionsProviderProps = {
 type TransactionsContextProps = {
   transactions: Transaction[];
   createTransaction: (transaction: TransactionInput) => Promise<void>
+  deleteTransaction: (transactionId: string) => Promise<void>
+  updateTransaction: (transactionId: string, transaction: TransactionInput) => Promise<void>
 
 }
 
@@ -35,7 +37,7 @@ export function TransactionsProvider ({ children }: TransactionsProviderProps) {
   async function createTransaction(transactionInput: TransactionInput) {
     const response = await api.post('/transactions', {
       ...transactionInput,
-      createdAt: new Date()
+      // createdAt: new Date()
     });
     const { transaction } = response.data;
 
@@ -45,12 +47,26 @@ export function TransactionsProvider ({ children }: TransactionsProviderProps) {
     ])
   }
 
+  async function deleteTransaction(transactionId: string):Promise<void>{
+    await api.delete(`/transactions/delete/${transactionId}`);
+    // api.get('/transactions')
+    //   .then(response => setTransactions(response.data.transactions)).catch(e => console.log(e));
+    const newArray = transactions.filter(el => el._id !== transactionId)
+    setTransactions(newArray);
+  }
+
+  async function updateTransaction(transactionId: string, transaction: TransactionInput){
+    await api.patch(`/transactions/update/${transactionId}`, transaction);
+  }
+
 
   return (
     <TransactionsContext.Provider value={
       {
         transactions,
-        createTransaction
+        createTransaction,
+        deleteTransaction,
+        updateTransaction
       }
     }>
       {children}
