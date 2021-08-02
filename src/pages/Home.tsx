@@ -7,7 +7,7 @@ import { NewTransactionModal } from "../components/NewTransactionModal";
 import { TransactionsProvider } from "../contexts/TransactionsContext";
 import { useAuth } from "../hooks/useAuth";
 import { Redirect } from "react-router-dom";
-import { LogoutButton } from "../components/LogoutButton";
+import { SettingsMenu } from "../components/SettingsMenu";
 
 Modal.setAppElement('#root');
 
@@ -35,7 +35,7 @@ export function Home() {
         />
         <GlobalStyle />
       </TransactionsProvider>
-      <LogoutButton />
+      <SettingsMenu />
     </>
   );
 }

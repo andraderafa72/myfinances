@@ -19,6 +19,7 @@ type TransactionsProviderProps = {
 
 type TransactionsContextProps = {
   transactions: Transaction[];
+  isLoading: boolean;
   createTransaction: (transaction: TransactionInput) => Promise<void>
   deleteTransaction: (transactionId: string) => Promise<void>
   updateTransaction: (transactionId: string, transaction: TransactionInput) => Promise<void>
@@ -29,6 +30,7 @@ export const TransactionsContext = createContext<TransactionsContextProps>({} as
 
 export function TransactionsProvider ({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const data = parseCookies(null, 'MyFinances@token');
@@ -43,28 +45,59 @@ export function TransactionsProvider ({ children }: TransactionsProviderProps) {
   }, []);
 
   async function createTransaction(transactionInput: TransactionInput) {
+    setIsLoading(true)
+    const data = parseCookies(null, 'MyFinances@token');
+    const token = data['MyFinances@token'];
+
     const response = await api.post('/transactions', {
       ...transactionInput,
-      // createdAt: new Date()
+    }, {
+      headers: {
+        'authorization': `Bearer ${token}`
+      }
     });
     const { transaction } = response.data;
+
+    console.log(transaction);
 
     setTransactions([
       ...transactions,
       transaction
     ])
+    setIsLoading(false)
   }
 
   async function deleteTransaction(transactionId: string):Promise<void>{
-    await api.delete(`/transactions/delete/${transactionId}`);
-    // api.get('/transactions')
-    //   .then(response => setTransactions(response.data.transactions)).catch(e => console.log(e));
+    setIsLoading(true)
+
+    const data = parseCookies(null, 'MyFinances@token');
+    const token = data['MyFinances@token'];
+
+    await api.delete(`/transactions/delete/${transactionId}`, { headers: {
+      'authorization': `Bearer ${token}`,
+    }});
     const newArray = transactions.filter(el => el._id !== transactionId)
     setTransactions(newArray);
+    setIsLoading(false)
   }
 
   async function updateTransaction(transactionId: string, transaction: TransactionInput){
-    await api.patch(`/transactions/update/${transactionId}`, transaction);
+    setIsLoading(true)
+
+    const data = parseCookies(null, 'MyFinances@token');
+    const token = data['MyFinances@token'];
+
+    await api.patch(`/transactions/update/${transactionId}`, transaction, { headers: {
+      'authorization': `Bearer ${token}`
+    }});
+
+    api.get('/transactions', {
+      headers: {
+        'authorization' : `Bearer ${token}`
+      }
+    }).then(response => setTransactions(response.data.transactions))
+
+    setIsLoading(false)
   }
 
 
@@ -72,6 +105,7 @@ export function TransactionsProvider ({ children }: TransactionsProviderProps) {
     <TransactionsContext.Provider value={
       {
         transactions,
+        isLoading,
         createTransaction,
         deleteTransaction,
         updateTransaction

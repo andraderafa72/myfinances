@@ -16,15 +16,15 @@ type NewTransactionModalProps = {
 export function EditTransactionModal({ isOpen, onRequestClose, transaction }: NewTransactionModalProps) {
   const { updateTransaction } = useTransactions();
 
-  const [type, setType] = useState('type');
+  const [type, setType] = useState(transaction.type);
   const [title, setTitle] = useState(transaction.title)
   const [amount, setAmount] = useState(transaction.amount)
   const [category, setCategory] = useState(transaction.category)
 
-  console.log(transaction)
   async function handleUpdateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
+    onRequestClose()
     await updateTransaction(transaction._id, {
       title,
       amount,
@@ -32,7 +32,6 @@ export function EditTransactionModal({ isOpen, onRequestClose, transaction }: Ne
       type
     });
 
-    onRequestClose()
     setTitle('')
     setAmount(0)
     setCategory('')

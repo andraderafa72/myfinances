@@ -3,6 +3,27 @@ import styled from "styled-components";
 export const Container = styled.div`
   margin-top: 4rem;
 
+  .loading{
+    width: 100%;
+    height: 15rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .loading-line{
+      border: 5px solid var(--background);
+      border-top-color: var(--purple);
+      animation: rotateLoading 1.5s infinite ease;
+      width: 10rem;
+      height: 10rem;
+      border-radius: 100%;
+    }
+  }
+
+  @keyframes rotateLoading{
+    to{transform: rotate(360deg)}
+  }
+
   table{
     width: 100%;
     border-spacing: 0 .5rem;
