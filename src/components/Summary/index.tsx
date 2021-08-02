@@ -53,7 +53,7 @@ export function Summary() {
         </strong>
       </div>
 
-      <div className={summary.total > 0 ? "highlight-background" : "highlight-background-red"}>
+      <div className={summary.total >= 0 ? "highlight-background" : "highlight-background-red"}>
         <header>
           <p>Total</p>
           <img src={totalImg} alt="entradas" />

@@ -1,3 +1,4 @@
+import { parseCookies } from "nookies";
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { api } from "../services/api";
 
@@ -30,8 +31,15 @@ export function TransactionsProvider ({ children }: TransactionsProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([])
 
   useEffect(() => {
-    api.get('/transactions')
-      .then(response => setTransactions(response.data.transactions))
+    const data = parseCookies(null, 'MyFinances@token');
+    const token = data['MyFinances@token'];
+
+    api.get('/transactions', {
+      headers: {
+        'authorization' : `Bearer ${token}`
+      }
+    }).then(response => setTransactions(response.data.transactions))
+
   }, []);
 
   async function createTransaction(transactionInput: TransactionInput) {
