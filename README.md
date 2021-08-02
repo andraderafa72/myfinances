@@ -1,3 +1,4 @@
+<br>
 <div align="center">
   <img src="/src/assets/logo.svg" alt="dtmoney" width="300px" />
 </div>
@@ -15,7 +16,7 @@
 </div>
 </p> <br>
 
-![Dt money](https://i.ibb.co/gR1JbD3/screencapture-localhost-3000-2021-07-19-19-34-27.png)
+![Dt money](https://i.ibb.co/McdPwfx/screencapture-localhost-3000-2021-07-29-13-18-00.png)
 
 <p align="center">
   <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
