@@ -23,6 +23,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
   async function handleCreateNewTransaction(event: FormEvent) {
     event.preventDefault();
 
+    onRequestClose()
     await createTransaction({
       title,
       amount,
@@ -30,7 +31,6 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
       type
     });
 
-    onRequestClose()
     setTitle('')
     setAmount(0)
     setCategory('')

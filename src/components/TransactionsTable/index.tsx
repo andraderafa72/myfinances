@@ -46,7 +46,7 @@ export function TransactionsTable() {
 
           <tbody>
             {transactions.map(transaction => (
-              <tr key={transaction.title}>
+              <tr key={transaction._id}>
                 <td>{transaction.title}</td>
                 <td className={transaction.type}>
                   {transaction.type === 'withdraw' && '- '}
