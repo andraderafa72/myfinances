@@ -43,6 +43,12 @@ export const Container = styled.div`
       color: var(--text-body);
 
       &:first-child{
+        text-overflow: ellipsis;
+          overflow: hidden;
+          /* display: --webkit-box; */
+          white-space: nowrap;
+          width: 35%;
+
         width: 30%;
         color: var(--text-title);
         border-radius: .25rem 0 0 .25rem;
@@ -70,6 +76,27 @@ export const Container = styled.div`
           & + img{
             margin-left: 1rem;
           }
+        }
+      }
+    }
+  }
+
+  @media(max-width: 768px){
+    table{
+      display: block;
+      width: 100%;
+      overflow-x: auto;
+
+      td{
+        &:first-child{
+          text-overflow: ellipsis;
+          overflow: hidden;
+          display: --webkit-box;
+          white-space: nowrap;
+          width: 35%;
+        }
+        &:last-child{
+          display: none;
         }
       }
     }

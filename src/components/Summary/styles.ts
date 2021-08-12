@@ -5,6 +5,18 @@ export const Container = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin-top: -10rem;
+  overflow-x: auto;
+
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-button,
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-track-piece,
+  &::-webkit-scrollbar-thumb,
+  &::-webkit-scrollbar-corner,
+  &::-webkit-resizer{
+    display: none;
+    opacity: 0;
+  }
 
   div{
     background: var(--shape);
@@ -34,5 +46,16 @@ export const Container = styled.div`
       background: var(--red);
       color: #fff;
     }
+    
   }
+  @media(max-width: 767px){
+    gap: 1rem;
+    position: relative;
+
+    div{
+      min-width: 265px;
+    }
+
+  }
+
 `

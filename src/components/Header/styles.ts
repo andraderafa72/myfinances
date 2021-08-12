@@ -26,4 +26,13 @@ export const Content = styled.div`
       filter: brightness(.9);
     }
   }
+
+  @media(max-width: 768px){
+    flex-wrap: wrap;
+
+    button{
+      margin-top: 3rem;
+      width: 100%;
+    }
+  }
 `;
