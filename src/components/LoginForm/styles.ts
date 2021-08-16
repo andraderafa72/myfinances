@@ -12,7 +12,8 @@ export const Form = styled.form`
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-top: -5rem;
+  margin-top: -7.5rem;
+  margin-bottom: 5rem;
 
   .loading{
     width: 100%;

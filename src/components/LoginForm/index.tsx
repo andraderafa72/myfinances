@@ -76,7 +76,7 @@ export function LoginForm() {
           />
 
           <button type="submit">
-            Entrar
+          {formType === 'login' ? ' Entrar' : 'Cadastrar'}
           </button>
 
           <p>
