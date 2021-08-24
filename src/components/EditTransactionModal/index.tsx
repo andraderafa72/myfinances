@@ -64,7 +64,8 @@ export function EditTransactionModal({ isOpen, onRequestClose, transaction }: Ne
         />
         <input
           type="number"
-          min={0}
+          min={0.01}
+          step={0.01}
           placeholder="Valor"
           value={amount}
           onChange={e => setAmount(Number(e.target.value))}

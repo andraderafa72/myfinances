@@ -63,9 +63,10 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
         />
         <input
           type="number"
-          min={0}
           placeholder="Valor"
           value={amount}
+          min={0.01}
+          step={0.01}
           onChange={e => setAmount(Number(e.target.value))}
         />
 
